@@ -1,0 +1,103 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amsthm,amssymb}
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{lemma}[theorem]{Lemma}
+\author{J. Ian Johnson}
+\title{Program Analysis Lecture Notes}
+\begin{document}
+\maketitle
+\section{9 January 2013}
+
+\subsection{Preliminaries}
+Initial lectures will be about lattices and fixed points, classic
+dataflow analysis (monotone), program dependency graphs and
+nonstandard abstract semantics.
+
+Prepare an annotated bibliography for papers you wish to study. All
+participants will give a lecture on their chosen paper(s) and later a
+short presentation on a project (implementation) that are related the these papers.
+
+% Ian's reminder to self:
+% SSA and sparse analysis (the first paper)
+% A good sparse analysis (a value-flow paper on points-t analysis)
+% Korean sparse analysis paper (general framework)
+
+\subsection{Fixed points and lattices}
+
+\begin{definition}[Preorder]
+A relation $\le \subseteq P\times P$ that is reflexive and
+transitive. The structure $(P,\le)$ is called a preordered set (preset).
+\end{definition}
+$P$ is called the \emph{carrier set}.
+
+All structures in these definitions will be referred to by their
+carrier set. Associated relations etc should be discernable from
+context. If not, we disambiguate with a subscript.
+
+\begin{definition}[Partial order]
+An antisymmetric preorder. The structure $(P, \le)$ is called a partially ordered set (poset).
+\end{definition}
+
+\begin{definition}[Upper bound]
+$a$ is an upper bound of $S \subseteq P$ in a poset
+  $(P, \sqsubseteq)$ iff for all $x \in S$, $x \sqsubseteq a$.
+\end{definition}
+
+\begin{definition}[Supremum (least upper bound)]
+$a$ is a supremum of $S \subseteq P$ in a poset $(P,
+  \sqsubseteq)$ iff $a$ is an upper bound of $S$ and for all upper
+  bounds $x$ of $S$, $a \sqsubseteq x$.
+\end{definition}
+
+Lower bound and greatest lower bound (infimum) are defined dually.
+
+\begin{definition}[Lattice]
+An extended poset $(L, \sqsubseteq, \sqcup, \sqcap)$ such that all
+$a,b \in L$ have a supremum (join, $a \sqcup b$) and infimum (meet, $a
+\sqcap b$).
+\end{definition}
+
+\begin{definition}[Complete Lattice]
+A lattice $L$ such that all $A \subseteq
+L$ have a supremum and infimum.
+\end{definition}
+
+\begin{definition}[Chain]
+A sequence $a_0, a_1, ...$ in a poset $(P,
+\sqsubseteq)$ such that $a_i \sqsubseteq a_{i+1}$ for all
+$i$. (Another definition disallows repeating: totally ordered
+non-empty subset)
+\end{definition}
+
+\begin{definition}[Finite height partial order]
+All chains in the poset have a finite size (using subset definition).
+\end{definition}
+
+\begin{definition}[Pointed partial order]
+A partial order where there are two special objects carried, $\top$ and $\bot$
+such that for all $x \in P$, $\bot \sqsubseteq x \sqsubseteq \top$.
+\end{definition}
+
+Note that $sup(L) = \top$ and $inf(L) = \bot$ in a complete lattice.
+
+\begin{definition}[Complete Partial Order (CPO)]
+All chains have a supremum in the carrier set.
+\end{definition}
+
+\begin{definition}[Order-preserving function]
+A function $f: X \to Y$, where $(X, \sqsubseteq)$ and $(Y, \preceq)$
+are ordered sets, and for all $x,x' \in X$, if $x \sqsubseteq x'$ then
+$f(x) \preceq f(x')$.
+\end{definition}
+
+\begin{definition}[Order-continuous function]
+An order-preserving function $f : X \to Y$ between two complete
+lattices $X$ and $Y$ such that for all $A \subseteq X$, $sup(f(A)) =
+f(sup(A))$.
+\end{definition}
+
+\section{11 January 2013}
+Out of town.
+
+\end{document}
